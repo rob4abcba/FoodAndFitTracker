@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface TrackerInterface {
 
@@ -45,6 +46,12 @@ public interface TrackerInterface {
     @GET("/natural/exercise")
     Call<Exercise> getName (
             @Query("api_key") String api_key);
+
+    @Headers("Content-Type:application/json, APP_ID:NutritionixAppID, API_KEY:NutritionixAppKey")
+    @GET()
+    Call<String>getStringResponse(@Url String url);
+
+
 
 //    @GET("{movie_id}/reviews")
 //    Call<ReviewModel> getReviewList(@Path("movie_id") int id, @Query("api_key") String api_key);
