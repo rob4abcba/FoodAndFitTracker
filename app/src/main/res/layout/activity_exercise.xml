@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <SearchView
@@ -14,6 +15,16 @@
     <TextView
         android:id="@+id/tv_exercise"
         android:layout_width="match_parent"
+        android:text="@string/exercise"
         android:layout_height="@dimen/layout_height" />
 
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/recyclerview_reviews"
+        android:layout_below="@id/tv_exercise"
+        android:scrollbars="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+
+</RelativeLayout>
