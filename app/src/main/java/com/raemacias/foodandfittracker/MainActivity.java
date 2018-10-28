@@ -1,57 +1,42 @@
 package com.raemacias.foodandfittracker;
 
-import android.net.Uri;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
-import adapters.PAdapter;
-import fragments.ExerciseFragment;
-import fragments.FoodFragment;
-import fragments.WeighInFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
-public class MainActivity extends AppCompatActivity implements
-        FoodFragment.OnFragmentInteractionListener, ExerciseFragment.OnFragmentInteractionListener,
-        WeighInFragment.OnFragmentInteractionListener {
+
+public class MainActivity extends AppCompatActivity  {
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tracker);
 
-        TabLayout tabLayout = findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Food"));
-        tabLayout.addTab(tabLayout.newTab().setText("Exercise"));
-        tabLayout.addTab(tabLayout.newTab().setText("Weigh In"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(getTitle());
 
-        final ViewPager viewPager = findViewById(R.id.pager);
-        final PAdapter adapter = new PAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        TextView breakfast = findViewById(R.id.breakfast);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
 
-            }
+//        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        //To show banner ads
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        //This is the test ads id
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 }
