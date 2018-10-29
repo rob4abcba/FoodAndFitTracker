@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Exercise implements Parcelable
+import java.io.Serializable;
+
+public class Exercise implements Serializable
 {
 
     @SerializedName("tag_id")
@@ -39,7 +41,7 @@ public class Exercise implements Parcelable
     @SerializedName("benefits")
     @Expose
     private Object benefits;
-    public final static Parcelable.Creator<Exercise> CREATOR = new Creator<Exercise>() {
+    public final static Parcelable.Creator<Exercise> CREATOR = new Parcelable.Creator<Exercise>() {
 
 
         @SuppressWarnings({
