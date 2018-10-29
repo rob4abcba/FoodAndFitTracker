@@ -6,22 +6,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<android.support.v7.widget.SearchView-->
+        <!--android:id="@+id/searchView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="40dp">-->
 
-    </SearchView>
+    <!--</android.support.v7.widget.SearchView>-->
 
     <TextView
         android:id="@+id/tv_exercise"
         android:layout_width="match_parent"
         android:text="@string/exercise"
+        android:padding="16dp"
+        android:textSize="20sp"
+        android:layout_height="@dimen/layout_height" />
+
+    <TextView
+        android:id="@+id/tv_calories_burned"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:id="@+id/recyclerview_reviews"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/recyclerview"
         android:layout_below="@id/tv_exercise"
         android:scrollbars="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
