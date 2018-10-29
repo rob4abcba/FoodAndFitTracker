@@ -9,6 +9,7 @@ import models.searchFoods.Common;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -29,13 +30,15 @@ public interface TrackerInterface {
     //searchFoods
     @Headers("APP_ID:NutritionixAppID, API_KEY:NutritionixAppKey")
     @GET("/search/instant")
-    Call<Common> getFoodName(
+    Call<List<Common>> getFoodName(
             @Query("api_key") String api_key);
 
     //searchExercises
     @Headers("APP_ID:NutritionixAppID, API_KEY:NutritionixAppKey")
     @GET("/natural/exercise")
-    Call<Exercise> getName();
+    Call<List<Exercise>> getName(
+            @Query("api_key") String api_key);
+//    Call<List<Exercise>> search(@Path("exercise") String api_key);
 
     @Headers("Content-Type:application/json, APP_ID:NutritionixAppID, API_KEY:NutritionixAppKey")
     @GET()
