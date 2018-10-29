@@ -1,4 +1,4 @@
 package com.raemacias.foodandfittracker;
 
-public class WeighIn {
+public class WeighInActivity {
 }

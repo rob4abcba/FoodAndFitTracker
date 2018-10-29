@@ -1,17 +1,21 @@
 package com.raemacias.foodandfittracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 
 public class MainActivity extends AppCompatActivity  {
+
+//    @BindView(R.id.exercise) TextView mExercise;
+//    @BindView(R.id.breakfast) TextView mBreakfast;
 
     private AdView mAdView;
 
@@ -24,7 +28,22 @@ public class MainActivity extends AppCompatActivity  {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
+        //Should implement butterknife here
+
         TextView breakfast = findViewById(R.id.breakfast);
+        TextView exercise = findViewById(R.id.exercise);
+
+        //Need to add all new activities with intents and put extras
+        //or on options selected - figure it out!
+        exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
 
 
 //        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
@@ -39,4 +58,7 @@ public class MainActivity extends AppCompatActivity  {
         mAdView.loadAd(adRequest);
 
     }
+
+
+
 }
