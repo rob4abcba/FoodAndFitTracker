@@ -6,16 +6,12 @@ import java.util.List;
 
 import models.getCaloriesBurnedForExercises.Exercise;
 import models.searchFoods.Common;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface TrackerInterface {
 
@@ -39,12 +35,20 @@ public interface TrackerInterface {
 
     //searchExercises
 
+//    @FormUrlEncoded
     @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:xxxxx"})
-    @FormUrlEncoded
     @POST("v2/natural/exercise")
-    Call<Exercise> saveExercise(
-            @Field("query") String query);
+    Call<Exercise> saveQuery(@Body String query);
+//    @Field("query") String query);
+
+
 //            @Field("gender") String gender);
+//    Call<Exercise> saveExercise(
+
+//
+//    @POST("/posts")
+//    @FormUrlEncoded
+//    Call<Post> savePost(@Body Post post);
 
 
 //    @Field("name") String name);

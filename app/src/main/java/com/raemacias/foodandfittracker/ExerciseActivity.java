@@ -60,7 +60,7 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     public void sendPost(String query) {
-        mAPIService.saveExercise(query).enqueue(new Callback<Exercise>() {
+        mAPIService.saveQuery(query).enqueue(new Callback<Exercise>() {
             @Override
             public void onResponse(Call<Exercise> call, Response<Exercise> response) {
 
