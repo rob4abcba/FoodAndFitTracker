@@ -40,8 +40,8 @@ public class ExerciseActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        final EditText workoutEt = findViewById(R.id.et_workout);
-        final EditText durationEt =  findViewById(R.id.et_duration);
+        final EditText queryET = findViewById(R.id.et_workout);
+//        final EditText genderET =  findViewById(R.id.et_duration);
         Button submitBtn = findViewById(R.id.btn_submit);
         mResponseTv = findViewById(R.id.tv_response);
 
@@ -50,17 +50,17 @@ public class ExerciseActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String workout = workoutEt.getText().toString().trim();
-                String duration_min = durationEt.getText().toString().trim();
-                if(!TextUtils.isEmpty(workout) && !TextUtils.isEmpty(duration_min)) {
-                    sendPost(workout, duration_min);
+                String query = queryET.getText().toString().trim();
+//                String gender = genderET.getText().toString().trim();
+                if(!TextUtils.isEmpty(query)) {
+                    sendPost(query);
                 }
             }
         });
     }
 
-    public void sendPost(String workout, String duration_min) {
-        mAPIService.saveExercise(workout, duration_min).enqueue(new Callback<Exercise>() {
+    public void sendPost(String query) {
+        mAPIService.saveExercise(query).enqueue(new Callback<Exercise>() {
             @Override
             public void onResponse(Call<Exercise> call, Response<Exercise> response) {
 
