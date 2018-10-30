@@ -1,28 +1,31 @@
 package com.raemacias.foodandfittracker;
 
-import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import java.util.List;
-
-import adapters.ExerciseListAdapter;
 import models.getCaloriesBurnedForExercises.Exercise;
-import network.Retrofit;
+import network.ApiUtils;
 import network.TrackerInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//This was created from the tutorial at:
+//https://code.tutsplus.com/tutorials/sending-data-with-retrofit-2-http-client-for-android--cms-27845
+
 public class ExerciseActivity extends AppCompatActivity {
 
-    private ListView listViewExercises;
+    private TextView mResponseTv;
+    private TrackerInterface mAPIService;
+    private String TAG = "ExerciseActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,52 +34,54 @@ public class ExerciseActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listViewExercises = findViewById(R.id.listViewExercises);
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-    }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        final SearchView searchView = (SearchView) menu.findItem(R.id.searchView).getActionView();
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        final EditText workoutEt = findViewById(R.id.et_workout);
+        final EditText durationEt =  findViewById(R.id.et_duration);
+        Button submitBtn = findViewById(R.id.btn_submit);
+        mResponseTv = findViewById(R.id.tv_response);
+
+        mAPIService = ApiUtils.getTrackerInterface();
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                TrackerInterface trackerInterface = Retrofit.getClient().create(TrackerInterface.class);
-                Call call = trackerInterface.getName(trackerInterface.API_KEY);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        List<Exercise> exercises = (List<Exercise>) response.body();
-                        ExerciseListAdapter exerciseListAdapter = new ExerciseListAdapter(getApplicationContext(), exercises);
-                        listViewExercises.setAdapter(exerciseListAdapter);
-
-                        
-                    }
-
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
-                        Toast.makeText(ExerciseActivity.this, "Sorry, results not found.", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onClick(View view) {
+                String workout = workoutEt.getText().toString().trim();
+                String duration_min = durationEt.getText().toString().trim();
+                if(!TextUtils.isEmpty(workout) && !TextUtils.isEmpty(duration_min)) {
+                    sendPost(workout, duration_min);
+                }
             }
         });
-
-        return true;
     }
+
+    public void sendPost(String workout, String duration_min) {
+        mAPIService.saveExercise(workout, duration_min).enqueue(new Callback<Exercise>() {
+            @Override
+            public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+
+                if(response.isSuccessful()) {
+                    showResponse(response.body().toString());
+                    Log.i(TAG, "post submitted to API." + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Exercise> call, Throwable t) {
+                Log.e(TAG, "Unable to submit post to API.");
+            }
+        });
+    }
+
+    public void showResponse(String response) {
+        if(mResponseTv.getVisibility() == View.GONE) {
+            mResponseTv.setVisibility(View.VISIBLE);
+        }
+        mResponseTv.setText(response);
+    }
+
 }
