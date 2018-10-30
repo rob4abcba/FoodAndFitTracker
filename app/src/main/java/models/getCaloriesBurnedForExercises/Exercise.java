@@ -10,6 +10,9 @@ import java.io.Serializable;
 
 public class Exercise implements Serializable
 {
+    @SerializedName("workout")
+    @Expose
+    private String workout;
 
     @SerializedName("tag_id")
     @Expose
@@ -41,6 +44,24 @@ public class Exercise implements Serializable
     @SerializedName("benefits")
     @Expose
     private Object benefits;
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "workout='" + workout + '\'' +
+                ", tagId=" + tagId +
+                ", userInput='" + userInput + '\'' +
+                ", durationMin=" + durationMin +
+                ", met=" + met +
+                ", nfCalories=" + nfCalories +
+                ", photo=" + photo +
+                ", compendiumCode=" + compendiumCode +
+                ", name='" + name + '\'' +
+                ", description=" + description +
+                ", benefits=" + benefits +
+                '}';
+    }
+
     public final static Parcelable.Creator<Exercise> CREATOR = new Parcelable.Creator<Exercise>() {
 
 
@@ -56,6 +77,8 @@ public class Exercise implements Serializable
         }
 
     }
+
+
             ;
 
     protected Exercise(Parcel in) {
@@ -202,4 +225,12 @@ public class Exercise implements Serializable
         return 0;
     }
 
+
+    public String getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(String workout) {
+        this.workout = workout;
+    }
 }

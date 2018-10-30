@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/searchView"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp">
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:text="@string/title_enter_post"/>
 
-    </android.support.v7.widget.SearchView>
+
+    <EditText
+        android:id="@+id/et_workout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_workout"
+         />
+
+    <EditText
+        android:id="@+id/et_duration"
+        android:lines="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_duration"/>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:text="@string/action_submit"/>
 
 
 
@@ -29,13 +51,22 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height" />
 
-    <ListView
-        android:layout_marginTop="80dp"
-        android:id="@+id/listViewExercises"
+    <TextView
+        android:id="@+id/tv_response"
+        android:layout_marginTop="35dp"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"/>
 
-    </ListView>
+    <!--<ListView-->
+        <!--android:layout_marginTop="80dp"-->
+        <!--android:id="@+id/listViewExercises"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!---->
+        <!---->
+
+    <!--</ListView>-->
 
 
-</RelativeLayout>
+</LinearLayout>
