@@ -9,7 +9,32 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Exercise implements Serializable
+
+//    query - body, string
+//    gender - body, string
+//    weight_lb - body, double
+//    height_in - body double
+//    age - body double
+
 {
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public static Parcelable.Creator<Exercise> getCREATOR() {
+        return CREATOR;
+    }
+
+    @SerializedName("query")
+    @Expose
+
+    private String query;
+
     @SerializedName("workout")
     @Expose
     private String workout;
@@ -48,6 +73,7 @@ public class Exercise implements Serializable
     @Override
     public String toString() {
         return "Exercise{" +
+                "query'" + query + '\'' +
                 "workout='" + workout + '\'' +
                 ", tagId=" + tagId +
                 ", userInput='" + userInput + '\'' +
@@ -82,6 +108,8 @@ public class Exercise implements Serializable
             ;
 
     protected Exercise(Parcel in) {
+        this.query = ((String) in.readValue((String.class.getClassLoader())));
+
         this.tagId = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.userInput = ((String) in.readValue((String.class.getClassLoader())));
         this.durationMin = ((Integer) in.readValue((Integer.class.getClassLoader())));
@@ -114,8 +142,9 @@ public class Exercise implements Serializable
      * @param tagId
      * @param nfCalories
      */
-    public Exercise(Integer tagId, String userInput, Integer durationMin, Double met, Double nfCalories, Photo photo, Integer compendiumCode, String name, Object description, Object benefits) {
+    public Exercise(String query, Integer tagId, String userInput, Integer durationMin, Double met, Double nfCalories, Photo photo, Integer compendiumCode, String name, Object description, Object benefits) {
         super();
+        this.query = query;
         this.tagId = tagId;
         this.userInput = userInput;
         this.durationMin = durationMin;
@@ -209,6 +238,7 @@ public class Exercise implements Serializable
     }
 
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(query);
         dest.writeValue(tagId);
         dest.writeValue(userInput);
         dest.writeValue(durationMin);
