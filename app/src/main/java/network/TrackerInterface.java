@@ -23,7 +23,7 @@ public interface TrackerInterface {
     //define base URL
 
     //all of the names and keys below need to be updated to the tracker app
-    String BASE_URL = "https://trackapi.nutritionix.com/v2/";
+    String BASE_URL = "https://trackapi.nutritionix.com/";
 //    String BASE_URL = "https://wger.de/api/v2";
     String API_KEY = BuildConfig.API_KEY;
     String APP_ID = "c9a9b2dd";
@@ -39,12 +39,12 @@ public interface TrackerInterface {
 
     //searchExercises
 
-    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:XXXXX"})
+    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:xxxxx"})
     @FormUrlEncoded
-    @POST("natural/exercise")
+    @POST("v2/natural/exercise")
     Call<Exercise> saveExercise(
-            @Field("workout") String workout,
-            @Field("durationMin") String duration_min);
+            @Field("query") String query);
+//            @Field("gender") String gender);
 
 
 //    @Field("name") String name);
