@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import models.getCaloriesBurnedForExercises.Exercise;
+import models.getCaloriesBurnedForExercises.ExerciseRequest;
 import network.ApiUtils;
 import network.TrackerInterface;
 import retrofit2.Call;
@@ -60,9 +60,9 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     public void sendPost(String query) {
-        mAPIService.saveQuery(query).enqueue(new Callback<Exercise>() {
+        mAPIService.getQuery(query).enqueue(new Callback<ExerciseRequest>() {
             @Override
-            public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+            public void onResponse(Call<ExerciseRequest> call, Response<ExerciseRequest> response) {
 
                 if(response.isSuccessful()) {
                     showResponse(response.body().toString());
@@ -71,7 +71,7 @@ public class ExerciseActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Exercise> call, Throwable t) {
+            public void onFailure(Call<ExerciseRequest> call, Throwable t) {
                 Log.e(TAG, "Unable to submit post to API.");
             }
         });

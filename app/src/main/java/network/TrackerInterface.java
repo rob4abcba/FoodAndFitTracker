@@ -5,6 +5,7 @@ import com.raemacias.foodandfittracker.BuildConfig;
 import java.util.List;
 
 import models.getCaloriesBurnedForExercises.Exercise;
+import models.getCaloriesBurnedForExercises.ExerciseRequest;
 import models.searchFoods.Common;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -38,7 +39,7 @@ public interface TrackerInterface {
 //    @FormUrlEncoded
     @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:xxxxx"})
     @POST("v2/natural/exercise")
-    Call<Exercise> saveQuery(@Body String query);
+    Call<ExerciseRequest> getQuery(@Body String query);
 //    @Field("query") String query);
 
 
