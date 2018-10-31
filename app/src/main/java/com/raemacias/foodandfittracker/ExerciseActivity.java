@@ -10,18 +10,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
+
+import models.getCaloriesBurnedForExercises.Exercise;
 import models.getCaloriesBurnedForExercises.ExerciseRequest;
-import network.ApiUtils;
+//import network.ApiUtils;
+import models.getCaloriesBurnedForExercises.Photo;
 import network.TrackerInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 //This was created from the tutorial at:
 //https://code.tutsplus.com/tutorials/sending-data-with-retrofit-2-http-client-for-android--cms-27845
 
-public class ExerciseActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity implements Callback<Exercise> {
 
     private TextView mResponseTv;
     private TrackerInterface mAPIService;
@@ -35,53 +49,102 @@ public class ExerciseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//        }
+//
+//        final EditText queryET = findViewById(R.id.et_workout);
+////        final EditText genderET =  findViewById(R.id.et_duration);
+//        Button submitBtn = findViewById(R.id.btn_submit);
+//        mResponseTv = findViewById(R.id.tv_response);
+//
+//        mAPIService = ApiUtils.getTrackerInterface();
+//
+//        submitBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String query = queryET.getText().toString().trim();
+////                String gender = genderET.getText().toString().trim();
+//                if(!TextUtils.isEmpty(query)) {
+//                    sendPost(query);
+//                }
+//            }
+//        });
+//    }
 
-        final EditText queryET = findViewById(R.id.et_workout);
-//        final EditText genderET =  findViewById(R.id.et_duration);
-        Button submitBtn = findViewById(R.id.btn_submit);
-        mResponseTv = findViewById(R.id.tv_response);
+//    public void sendPost(String query) {
+//        mAPIService.getUser(query).enqueue(new Callback<ExerciseRequest>() {
+//            @Override
+//            public void onResponse(Call<ExerciseRequest> call, Response<ExerciseRequest> response) {
+//
+//                if(response.isSuccessful()) {
+//                    showResponse(response.body().toString());
+//                    Log.i(TAG, "post submitted to API." + response.body().toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ExerciseRequest> call, Throwable t) {
+//                Log.e(TAG, "Unable to submit post to API.");
+//            }
+//        });
+//    }
+//
+//    public void showResponse(String response) {
+//        if(mResponseTv.getVisibility() == View.GONE) {
+//            mResponseTv.setVisibility(View.VISIBLE);
+//        }
+//        mResponseTv.setText(response);
+//    }
+//
+//}
 
-        mAPIService = ApiUtils.getTrackerInterface();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(TrackerInterface.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
+        TrackerInterface service = retrofit.create(TrackerInterface.class);
+
+        Call<Exercise> call=service.getStringScalar(new ExerciseRequest(query, age));
+
+        call.enqueue(new Callback<Exercise>() {
             @Override
-            public void onClick(View view) {
-                String query = queryET.getText().toString().trim();
-//                String gender = genderET.getText().toString().trim();
-                if(!TextUtils.isEmpty(query)) {
-                    sendPost(query);
+            public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+                //response.body() have your LoginResult fields and methods  (example you have to access error then try like this response.body().getError() )
+
+//                if(response.body().getName){
+//                    Toast.makeText(getBaseContext(),response.body().getName(),Toast.LENGTH_SHORT).show();
+//
+//
+//                }else {
+                    //response.body() have your LoginResult fields and methods  (example you have to access error then try like this response.body().getError() )
+                    String workout = response.body().getWorkout();
+                    int tagId = response.body().getTagId();
+                    String user_input = response.body().getUserInput();
+
+                    int duration_min = response.body().getDurationMin();
+                    Double met = response.body().getMet();
+                    Double nf_calories = response.body().getNfCalories();
+                    Photo photo = response.body().getPhoto();
+                    int compendium_code = response.body().getCompendiumCode();
+                    String name = response.body().getName();
+                    Object description = response.body().getDescription();
+                    Object benefits = response.body().getBenefits();
+
                 }
+
+
+
+
+
+
+
+            @Override
+            public void onFailure(Call<Exercise> call, Throwable t) {
+                //for getting error in network put here Toast, so get the error on network
             }
         });
-    }
-
-    public void sendPost(String query) {
-        mAPIService.getQuery(query).enqueue(new Callback<ExerciseRequest>() {
-            @Override
-            public void onResponse(Call<ExerciseRequest> call, Response<ExerciseRequest> response) {
-
-                if(response.isSuccessful()) {
-                    showResponse(response.body().toString());
-                    Log.i(TAG, "post submitted to API." + response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ExerciseRequest> call, Throwable t) {
-                Log.e(TAG, "Unable to submit post to API.");
-            }
-        });
-    }
-
-    public void showResponse(String response) {
-        if(mResponseTv.getVisibility() == View.GONE) {
-            mResponseTv.setVisibility(View.VISIBLE);
-        }
-        mResponseTv.setText(response);
-    }
-
 }

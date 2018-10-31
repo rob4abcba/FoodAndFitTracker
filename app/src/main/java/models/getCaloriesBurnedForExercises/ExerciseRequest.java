@@ -8,7 +8,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class ExerciseRequest implements Serializable {
+public class ExerciseRequest  {
+
+    private String query;
+    private String gender;
+    private Double weight_lb;
+    private Double height_in;
+    private Double age;
+
 
 
 //    query - body, string
@@ -58,25 +65,25 @@ public class ExerciseRequest implements Serializable {
         this.age = age;
     }
 
-    @SerializedName("query")
-    @Expose
-    private String query;
-
-    @SerializedName("gender")
-    @Expose
-    private String gender;
-
-    @SerializedName("weight_lb")
-    @Expose
-    private Double weight_lb;
-
-    @SerializedName("height_in")
-    @Expose
-    private Double height_in;
-
-    @SerializedName("age")
-    @Expose
-    private Double age;
+//    @SerializedName("query")
+//    @Expose
+//    private String query;
+//
+//    @SerializedName("gender")
+//    @Expose
+//    private String gender;
+//
+//    @SerializedName("weight_lb")
+//    @Expose
+//    private Double weight_lb;
+//
+//    @SerializedName("height_in")
+//    @Expose
+//    private Double height_in;
+//
+//    @SerializedName("age")
+//    @Expose
+//    private Double age;
 
     @Override
     public String toString() {
