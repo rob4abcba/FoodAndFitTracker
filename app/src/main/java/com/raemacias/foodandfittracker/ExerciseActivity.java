@@ -41,6 +41,24 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
     private TrackerInterface mAPIService;
     private String TAG = "ExerciseActivity";
 
+    private int tagId;
+    private String userInput;
+    private int durationMin;
+    private Double met;
+    private Double nfCalories;
+    private Photo photo;
+    private int compendiumCode;
+    private String name;
+    private Object description;
+    private Object benefits;
+    private String workout;
+
+    private String query;
+    private String gender;
+    private Double weight_lb;
+    private Double height_in;
+    private Double age;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,19 +126,19 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
         TrackerInterface service = retrofit.create(TrackerInterface.class);
 
-        Call<Exercise> call=service.getStringScalar(new ExerciseRequest(query, age));
+        Call<Exercise> call = service.getStringScalar(new ExerciseRequest(query, gender, weight_lb, height_in, age));
 
         call.enqueue(new Callback<Exercise>() {
             @Override
             public void onResponse(Call<Exercise> call, Response<Exercise> response) {
-                //response.body() have your LoginResult fields and methods  (example you have to access error then try like this response.body().getError() )
-
-//                if(response.body().getName){
-//                    Toast.makeText(getBaseContext(),response.body().getName(),Toast.LENGTH_SHORT).show();
+                //response.body() have your result fields and methods  (example you have to access error then try like this response.body().getError() )
+                if (response.isSuccessful()) {
+                    showResponse(response.body().toString());
+//                    Log.i(TAG, "post submitted to API." + response.body().toString());
 //
 //
-//                }else {
-                    //response.body() have your LoginResult fields and methods  (example you have to access error then try like this response.body().getError() )
+//                } else {
+////                response.body() have your result fields and methods  (example you have to access error then try like this response.body().getError() )
                     String workout = response.body().getWorkout();
                     int tagId = response.body().getTagId();
                     String user_input = response.body().getUserInput();
@@ -136,15 +154,30 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
                 }
 
-
-
-
-
-
+            }
 
             @Override
             public void onFailure(Call<Exercise> call, Throwable t) {
-                //for getting error in network put here Toast, so get the error on network
+
+            }
+
+
+            public void showResponse(String response) {
+                if (mResponseTv.getVisibility() == View.GONE) {
+                    mResponseTv.setVisibility(View.VISIBLE);
+                }
+                mResponseTv.setText(response);
             }
         });
+    }
+
+    @Override
+    public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<Exercise> call, Throwable t) {
+
+    }
 }

@@ -8,21 +8,26 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class ExerciseRequest  {
+public class ExerciseRequest {
 
+    private final String mQuery;
+    private final String mGender;
+    private final Double mWeight_lb;
+    private final Double mHeight_in;
+    private final Double mAge;
     private String query;
     private String gender;
     private Double weight_lb;
     private Double height_in;
     private Double age;
 
-
-
-//    query - body, string
-//    gender - body, string
-//    weight_lb - body, double
-//    height_in - body double
-//    age - body double
+    public ExerciseRequest(String query, String gender, Double weight_lb, Double height_in, Double age) {
+        mQuery = query;
+        mGender = gender;
+        mWeight_lb = weight_lb;
+        mHeight_in = height_in;
+        mAge = age;
+    }
 
     public String getQuery() {
         return query;
@@ -64,66 +69,5 @@ public class ExerciseRequest  {
     public void setAge(Double age) {
         this.age = age;
     }
-
-//    @SerializedName("query")
-//    @Expose
-//    private String query;
-//
-//    @SerializedName("gender")
-//    @Expose
-//    private String gender;
-//
-//    @SerializedName("weight_lb")
-//    @Expose
-//    private Double weight_lb;
-//
-//    @SerializedName("height_in")
-//    @Expose
-//    private Double height_in;
-//
-//    @SerializedName("age")
-//    @Expose
-//    private Double age;
-
-    @Override
-    public String toString() {
-        return "ExerciseRequest{" +
-                ", query='" + query + '\'' +
-                ", gender='" + gender + '\'' +
-                ", weight_lb=" + weight_lb +
-                ", height_in=" + height_in +
-                ", age=" + age +
-                '}';
-    }
-
-    public final static Parcelable.Creator<ExerciseRequest> CREATOR = new Parcelable.Creator<ExerciseRequest>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public ExerciseRequest createFromParcel(Parcel in) {
-            return new ExerciseRequest(in);
-        }
-
-        public ExerciseRequest[] newArray(int size) {
-            return (new ExerciseRequest[size]);
-        }
-
-    };
-
-
-    protected ExerciseRequest (Parcel in) {
-        this.query = ((String) in.readValue((String.class.getClassLoader())));
-
-        this.gender = ((String) in.readValue((Integer.class.getClassLoader())));
-        this.weight_lb = ((Double) in.readValue((String.class.getClassLoader())));
-        this.height_in = ((Double) in.readValue((Integer.class.getClassLoader())));
-        this.age = ((Double) in.readValue((Double.class.getClassLoader())));
-    }
-
-        public static Parcelable.Creator<ExerciseRequest> getCREATOR() {
-        return CREATOR;
-    }
-
 }
+
