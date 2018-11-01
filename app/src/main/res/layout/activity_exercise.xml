@@ -20,13 +20,6 @@
         android:hint="@string/hint_workout"
          />
 
-    <EditText
-        android:id="@+id/et_duration"
-        android:lines="4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_duration"/>
-
     <Button
         android:id="@+id/btn_submit"
         android:layout_marginTop="18dp"
