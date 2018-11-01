@@ -1,6 +1,7 @@
 package com.raemacias.foodandfittracker;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +36,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 //This was created from the tutorial at:
 //https://code.tutsplus.com/tutorials/sending-data-with-retrofit-2-http-client-for-android--cms-27845
 
-public class ExerciseActivity extends AppCompatActivity implements Callback<Exercise> {
+public class ExerciseActivity extends AppCompatActivity {
 
     private TextView mResponseTv;
     private TrackerInterface mAPIService;
@@ -75,7 +76,7 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 //        final EditText queryET = findViewById(R.id.et_workout);
 ////        final EditText genderET =  findViewById(R.id.et_duration);
 //        Button submitBtn = findViewById(R.id.btn_submit);
-//        mResponseTv = findViewById(R.id.tv_response);
+        mResponseTv = findViewById(R.id.tv_response);
 //
 //        mAPIService = ApiUtils.getTrackerInterface();
 //
@@ -130,16 +131,9 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
         call.enqueue(new Callback<Exercise>() {
             @Override
-            public void onResponse(Call<Exercise> call, Response<Exercise> response) {
-                //response.body() have your result fields and methods  (example you have to access error then try like this response.body().getError() )
-                if (response.isSuccessful()) {
-                    showResponse(response.body().toString());
-//                    Log.i(TAG, "post submitted to API." + response.body().toString());
-//
-//
-//                } else {
-////                response.body() have your result fields and methods  (example you have to access error then try like this response.body().getError() )
-                    String workout = response.body().getWorkout();
+            public void onResponse(@NonNull Call<Exercise> call, @NonNull Response<Exercise> response) {
+                if (response.body() != null) {
+
                     int tagId = response.body().getTagId();
                     String user_input = response.body().getUserInput();
 
@@ -151,9 +145,10 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
                     String name = response.body().getName();
                     Object description = response.body().getDescription();
                     Object benefits = response.body().getBenefits();
-
+                    String workout = response.body().getWorkout();
+                } else {
+                    Toast.makeText(ExerciseActivity.this, "This is null", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -162,22 +157,6 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
             }
 
 
-            public void showResponse(String response) {
-                if (mResponseTv.getVisibility() == View.GONE) {
-                    mResponseTv.setVisibility(View.VISIBLE);
-                }
-                mResponseTv.setText(response);
-            }
         });
-    }
-
-    @Override
-    public void onResponse(Call<Exercise> call, Response<Exercise> response) {
-
-    }
-
-    @Override
-    public void onFailure(Call<Exercise> call, Throwable t) {
-
     }
 }

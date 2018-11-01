@@ -49,7 +49,7 @@ public interface TrackerInterface {
 
     //using request body
 //    @FormUrlEncoded
-    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:xxx"})
+    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd", "x-app-key:xxx"})
     @POST("v2/natural/exercise")
     Call<Exercise> getStringScalar(@Body ExerciseRequest body);
 
