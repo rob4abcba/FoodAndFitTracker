@@ -84,7 +84,6 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
         mResponseTv = findViewById(R.id.tv_response);
         submitBtn.setOnClickListener(new View.OnClickListener() {
 
-
             @Override
             public void onClick(View v) {
                 loadJSON();
@@ -119,7 +118,6 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
                     showResponse(response.body().toString());
                     Log.i (TAG, "post submitted to API" + response.body().toString());
 
-
                     String[] exercises = new String[results.size()];
 
                     for (int i = 0; i < results.size(); i++) {
@@ -129,9 +127,6 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
                     for (List<Exercise> h : results) {
                         Log.i("TANNER", new Gson().toJson(response.body()));
 
-//                    just to debug the return object as a string so I can see if data gets set
-//                    also some useful things
-
                         Log.i("TANNER", call.request().url().toString());
                         Log.i("TANNER", call.request().headers().toString());
                         try {
@@ -139,22 +134,7 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
-
-
-//                    int tagId = response.body().getTagId();
-//                    String user_input = response.body().getUserInput();
-//
-//                    int duration_min = response.body().getDurationMin();
-//                    Double met = response.body().getMet();
-//                    Double nf_calories = response.body().getNfCalories();
-//                    Photo photo = response.body().getPhoto();
-//                    int compendium_code = response.body().getCompendiumCode();
-//                    String name = response.body().getName();
-//                    Object description = response.body().getDescription();
-//                    Object benefits = response.body().getBenefits();
-////                    String workout = response.body().getWorkout();
                 }
             }
 
@@ -162,8 +142,6 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
             public void onFailure(Call<ExerciseBase> call, Throwable t) {
 
             }
-
-
         });
     }
         public void showResponse(String response) {
@@ -175,19 +153,16 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
     @Override
     public void onResponse(Call<Exercise> call, Response<Exercise> response) {
-
     }
 
     @Override
     public void onFailure(Call<Exercise> call, Throwable t) {
-
     }
 
     @Override
     public void onClick(View v) {
         String query = mResponseTv.getText().toString();
         Toast.makeText(ExerciseActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
-
     }
 }
 
