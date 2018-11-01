@@ -1,33 +1,49 @@
 package models.getCaloriesBurnedForExercises;
 
-//import android.os.Parcel;
-//import android.os.Parcelable;
-//
-//import com.google.gson.annotations.Expose;
-//import com.google.gson.annotations.SerializedName;
-//
-//import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Exercise {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Exercise implements Serializable {
     //This is the result of the query
 
+    @SerializedName("tag_id")
     private int tagId;
+    @SerializedName("user_input")
     private String userInput;
-    private int durationMin;
-    private Double met;
-    private Double nfCalories;
+    @SerializedName("duration_min")
+    private float durationMin;
+    @SerializedName("met")
+    private float met;
+    @SerializedName("nf_calories")
+    private float nfCalories;
+    @SerializedName("photo")
     private Photo photo;
+    @SerializedName("compendium_code")
     private int compendiumCode;
+    @SerializedName("name")
     private String name;
-    private Object description;
-    private Object benefits;
-    private String workout;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("benefits")
+    private String benefits;
+//    @SerializedName("")
+//    private String workout;
 
-    public Integer getTagId() {
+
+    public Exercise() {
+
+    }
+
+    public int getTagId() {
         return tagId;
     }
 
-    public void setTagId(Integer tagId) {
+    public void setTagId(int tagId) {
         this.tagId = tagId;
     }
 
@@ -39,27 +55,27 @@ public class Exercise {
         this.userInput = userInput;
     }
 
-    public Integer getDurationMin() {
+    public float getDurationMin() {
         return durationMin;
     }
 
-    public void setDurationMin(Integer durationMin) {
+    public void setDurationMin(float durationMin) {
         this.durationMin = durationMin;
     }
 
-    public Double getMet() {
+    public float getMet() {
         return met;
     }
 
-    public void setMet(Double met) {
+    public void setMet(float met) {
         this.met = met;
     }
 
-    public Double getNfCalories() {
+    public float getNfCalories() {
         return nfCalories;
     }
 
-    public void setNfCalories(Double nfCalories) {
+    public void setNfCalories(float nfCalories) {
         this.nfCalories = nfCalories;
     }
 
@@ -71,11 +87,11 @@ public class Exercise {
         this.photo = photo;
     }
 
-    public Integer getCompendiumCode() {
+    public int getCompendiumCode() {
         return compendiumCode;
     }
 
-    public void setCompendiumCode(Integer compendiumCode) {
+    public void setCompendiumCode(int compendiumCode) {
         this.compendiumCode = compendiumCode;
     }
 
@@ -87,28 +103,19 @@ public class Exercise {
         this.name = name;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public Object getBenefits() {
+    public String getBenefits() {
         return benefits;
     }
 
-    public void setBenefits(Object benefits) {
+    public void setBenefits(String benefits) {
         this.benefits = benefits;
     }
-    public String getWorkout() {
-        return workout;
-    }
-
-    public void setWorkout(String workout) {
-        this.workout = workout;
-    }
-
-
 }
