@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.getCaloriesBurnedForExercises.Exercise;
+import models.getCaloriesBurnedForExercises.ExerciseBase;
 import models.getCaloriesBurnedForExercises.ExerciseRequest;
 import models.searchFoods.Common;
 import okhttp3.RequestBody;
@@ -40,33 +41,13 @@ public interface TrackerInterface {
 
     //searchExercises
 
-////    @FormUrlEncoded
-//    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:xxxxx"})
-//    @POST("v2/natural/exercise")
-//    Call<ExerciseRequest> getQuery(@Body String query);
-//    @Field("query") String query);
-
-
-    //using request body
-//    @FormUrlEncoded
-    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd", "x-app-key:xxx"})
+    @Headers({
+            "content-type: application/json",
+            "x-app-id:c9a9b2dd",
+            "x-app-key:xxxxx"
+    })
     @POST("v2/natural/exercise")
-    Call<Exercise> getStringScalar(@Body ExerciseRequest body);
-
-
-//            @Field("gender") String gender);
-//    Call<Exercise> saveExercise(
-
-//
-//    @POST("/posts")
-//    @FormUrlEncoded
-//    Call<Post> savePost(@Body Post post);
-
-
-//    @Field("name") String name);
-//            @Path("query") String query);
-//    Call<List<Exercise>> search(@Query("api_key") String api_key);
-
+    Call<ExerciseBase> getStringScalar(@Body ExerciseRequest query);
 
 
 

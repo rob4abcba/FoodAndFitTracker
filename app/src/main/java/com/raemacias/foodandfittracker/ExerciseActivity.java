@@ -13,15 +13,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import models.getCaloriesBurnedForExercises.Exercise;
+import models.getCaloriesBurnedForExercises.ExerciseBase;
 import models.getCaloriesBurnedForExercises.ExerciseRequest;
 //import network.ApiUtils;
 import models.getCaloriesBurnedForExercises.Photo;
@@ -36,7 +42,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 //This was created from the tutorial at:
 //https://code.tutsplus.com/tutorials/sending-data-with-retrofit-2-http-client-for-android--cms-27845
 
-public class ExerciseActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity implements Callback<Exercise>, View.OnClickListener {
 
     private TextView mResponseTv;
     private TrackerInterface mAPIService;
@@ -60,6 +66,8 @@ public class ExerciseActivity extends AppCompatActivity {
     private Double height_in;
     private Double age;
 
+    List<Exercise> results;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,56 +76,28 @@ public class ExerciseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Show the Up button in the action bar.
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
-//
-//        final EditText queryET = findViewById(R.id.et_workout);
-////        final EditText genderET =  findViewById(R.id.et_duration);
-//        Button submitBtn = findViewById(R.id.btn_submit);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        Button submitBtn = findViewById(R.id.btn_submit);
         mResponseTv = findViewById(R.id.tv_response);
-//
-//        mAPIService = ApiUtils.getTrackerInterface();
-//
-//        submitBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String query = queryET.getText().toString().trim();
-////                String gender = genderET.getText().toString().trim();
-//                if(!TextUtils.isEmpty(query)) {
-//                    sendPost(query);
-//                }
-//            }
-//        });
-//    }
+        submitBtn.setOnClickListener(new View.OnClickListener() {
 
-//    public void sendPost(String query) {
-//        mAPIService.getUser(query).enqueue(new Callback<ExerciseRequest>() {
-//            @Override
-//            public void onResponse(Call<ExerciseRequest> call, Response<ExerciseRequest> response) {
-//
-//                if(response.isSuccessful()) {
-//                    showResponse(response.body().toString());
-//                    Log.i(TAG, "post submitted to API." + response.body().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ExerciseRequest> call, Throwable t) {
-//                Log.e(TAG, "Unable to submit post to API.");
-//            }
-//        });
-//    }
-//
-//    public void showResponse(String response) {
-//        if(mResponseTv.getVisibility() == View.GONE) {
-//            mResponseTv.setVisibility(View.VISIBLE);
-//        }
-//        mResponseTv.setText(response);
-//    }
-//
-//}
+
+            @Override
+            public void onClick(View v) {
+                loadJSON();
+                String query = mResponseTv.getText().toString();
+                Toast.makeText(ExerciseActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+    }
+
+        private void loadJSON() {
+        results = new ArrayList<>();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TrackerInterface.BASE_URL)
@@ -125,38 +105,90 @@ public class ExerciseActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        TrackerInterface service = retrofit.create(TrackerInterface.class);
+        TrackerInterface trackerInterface = retrofit.create(TrackerInterface.class);
 
-        Call<Exercise> call = service.getStringScalar(new ExerciseRequest(query, gender, weight_lb, height_in, age));
+        Call<ExerciseBase> call = trackerInterface.getStringScalar(new ExerciseRequest(query));
 
-        call.enqueue(new Callback<Exercise>() {
+        call.enqueue(new Callback<ExerciseBase>() {
             @Override
-            public void onResponse(@NonNull Call<Exercise> call, @NonNull Response<Exercise> response) {
+            public void onResponse(Call<ExerciseBase> call, Response<ExerciseBase> response) {
+
                 if (response.body() != null) {
 
-                    int tagId = response.body().getTagId();
-                    String user_input = response.body().getUserInput();
+                    List<List<Exercise>> results = Arrays.asList(response.body().getExercises());
+                    showResponse(response.body().toString());
+                    Log.i (TAG, "post submitted to API" + response.body().toString());
 
-                    int duration_min = response.body().getDurationMin();
-                    Double met = response.body().getMet();
-                    Double nf_calories = response.body().getNfCalories();
-                    Photo photo = response.body().getPhoto();
-                    int compendium_code = response.body().getCompendiumCode();
-                    String name = response.body().getName();
-                    Object description = response.body().getDescription();
-                    Object benefits = response.body().getBenefits();
-                    String workout = response.body().getWorkout();
-                } else {
-                    Toast.makeText(ExerciseActivity.this, "This is null", Toast.LENGTH_SHORT).show();
+
+                    String[] exercises = new String[results.size()];
+
+                    for (int i = 0; i < results.size(); i++) {
+                        exercises[i] = String.valueOf(results.get(i));
+                    }
+
+                    for (List<Exercise> h : results) {
+                        Log.i("TANNER", new Gson().toJson(response.body()));
+
+//                    just to debug the return object as a string so I can see if data gets set
+//                    also some useful things
+
+                        Log.i("TANNER", call.request().url().toString());
+                        Log.i("TANNER", call.request().headers().toString());
+                        try {
+                            Log.i("TANNER", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
+//                    int tagId = response.body().getTagId();
+//                    String user_input = response.body().getUserInput();
+//
+//                    int duration_min = response.body().getDurationMin();
+//                    Double met = response.body().getMet();
+//                    Double nf_calories = response.body().getNfCalories();
+//                    Photo photo = response.body().getPhoto();
+//                    int compendium_code = response.body().getCompendiumCode();
+//                    String name = response.body().getName();
+//                    Object description = response.body().getDescription();
+//                    Object benefits = response.body().getBenefits();
+////                    String workout = response.body().getWorkout();
                 }
             }
 
             @Override
-            public void onFailure(Call<Exercise> call, Throwable t) {
+            public void onFailure(Call<ExerciseBase> call, Throwable t) {
 
             }
 
 
         });
     }
+        public void showResponse(String response) {
+        if(mResponseTv.getVisibility() == View.GONE) {
+            mResponseTv.setVisibility(View.VISIBLE);
+        }
+        mResponseTv.setText(response);
+    }
+
+    @Override
+    public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<Exercise> call, Throwable t) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        String query = mResponseTv.getText().toString();
+        Toast.makeText(ExerciseActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
+
+    }
 }
+
+

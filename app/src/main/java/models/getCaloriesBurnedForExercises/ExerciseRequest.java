@@ -21,7 +21,7 @@ public class ExerciseRequest {
     private Double height_in;
     private Double age;
 
-    public ExerciseRequest(String query, String gender, Double weight_lb, Double height_in, Double age) {
+    public ExerciseRequest(String query) {
         mQuery = query;
         mGender = gender;
         mWeight_lb = weight_lb;
