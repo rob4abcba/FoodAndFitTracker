@@ -14,9 +14,6 @@ import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity  {
 
-//    @BindView(R.id.exercise) TextView mExercise;
-//    @BindView(R.id.breakfast) TextView mBreakfast;
-
     private AdView mAdView;
 
     @Override
@@ -28,13 +25,11 @@ public class MainActivity extends AppCompatActivity  {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        //Should implement butterknife here
+        //Implement butterknife here
 
         TextView breakfast = findViewById(R.id.breakfast);
         TextView exercise = findViewById(R.id.exercise);
 
-        //Need to add all new activities with intents and put extras
-        //or on options selected - figure it out!
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +53,4 @@ public class MainActivity extends AppCompatActivity  {
         mAdView.loadAd(adRequest);
 
     }
-
-
-
 }

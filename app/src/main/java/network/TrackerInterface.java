@@ -24,20 +24,12 @@ public interface TrackerInterface {
     //The interface defines the possible HTTP operations
     //define base URL
 
-    //all of the names and keys below need to be updated to the tracker app
     String BASE_URL = "https://trackapi.nutritionix.com/";
-//    String BASE_URL = "https://wger.de/api/v2";
     String API_KEY = BuildConfig.API_KEY;
     String APP_ID = "c9a9b2dd";
     String NATURAL_FOOD = "food";
     String EXERCISE = "exercise";
     String WEIGHT = "weigh_in";
-
-//    searchFoods
-    @Headers({"Content-Type: application/json", "x-app-id:c9a9b2dd, x-app-key:API_KEY"})
-    @GET("search/instant")
-    Call<List<Common>> getFoodName(
-            @Query("api_key") String api_key);
 
     //searchExercises
 
@@ -48,7 +40,5 @@ public interface TrackerInterface {
     })
     @POST("v2/natural/exercise")
     Call<ExerciseBase> getStringScalar(@Body ExerciseRequest query);
-
-
 
 }
