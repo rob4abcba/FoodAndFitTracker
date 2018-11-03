@@ -13,7 +13,7 @@ public class ExerciseRequest implements Serializable {
 
 
 
-    public ExerciseRequest(Editable query) {
+    public ExerciseRequest(String query) {
         query = query;
 //        gender = gender;
 //        weight_kg = weight_kg;
