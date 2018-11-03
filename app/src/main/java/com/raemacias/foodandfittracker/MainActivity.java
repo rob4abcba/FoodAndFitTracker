@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity  {
 
         //Implement butterknife here
 
-        TextView breakfast = findViewById(R.id.breakfast);
         TextView exercise = findViewById(R.id.exercise);
 
         exercise.setOnClickListener(new View.OnClickListener() {
