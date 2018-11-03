@@ -10,28 +10,24 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import models.getCaloriesBurnedForExercises.Exercise;
-import models.getCaloriesBurnedForExercises.ExerciseBase;
 import models.getCaloriesBurnedForExercises.ExerciseRequest;
 //import network.ApiUtils;
 import models.getCaloriesBurnedForExercises.Photo;
@@ -48,7 +44,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 //This was created from the tutorial at:
 //https://code.tutsplus.com/tutorials/sending-data-with-retrofit-2-http-client-for-android--cms-27845
 
-public class ExerciseActivity extends AppCompatActivity implements Callback<ExerciseBase>, View.OnClickListener {
+public class ExerciseActivity extends AppCompatActivity implements View.OnClickListener, Window.Callback {
 
     private TextView mResponseTv;
     private String TAG = "ExerciseActivity";
@@ -105,7 +101,6 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TrackerInterface.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -114,52 +109,46 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
         TrackerInterface trackerInterface = retrofit.create(TrackerInterface.class);
 
-            Call<ExerciseBase> call = trackerInterface.getStringScalar(new ExerciseRequest(query));
+        Call<Exercise> call = trackerInterface.getStringScalar(new ExerciseRequest(query));
+        System.out.print(query);
 
-        call.enqueue(new Callback<ExerciseBase>() {
+        call.enqueue(new Callback<Exercise>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(@NonNull Call<ExerciseBase> call, @NonNull Response<ExerciseBase> response) {
+            public void onResponse(@NonNull Call<Exercise> call, @NonNull Response<Exercise> response) {
+                if (response.isSuccessful()) {
+                    showResponse(response.body().toString());
 
-                if (response.body() != null) {
 
-                    List<List<Exercise>> results = Collections.singletonList(Objects.requireNonNull(response.body()).getExercises());
-                    assert response.body() != null;
-                    showResponse(Objects.requireNonNull(response.body()).toString());
-                    Log.i (TAG, "post submitted to API" + Objects.requireNonNull(response.body()).toString());
+//                response.body();
+//                int id = response.body().getTagId();
+//                String userInput = response.body().getUserInput();
+//                float durationMin = response.body().getDurationMin();
+//                float met = response.body().getMet();
+//                float nf_calories = response.body().getNfCalories();
+//                Photo photo = response.body().getPhoto();
+//                int compendium_code = response.body().getCompendiumCode();
+//                String name = response.body().getName();
+//                String description = response.body().getDescription();
+//                String benefits = response.body().getBenefits();
 
-                    String[] exercises = new String[results.size()];
+                    Log.i(TAG, "post submitted to API" + (response.body()).toString());
 
-                    for (int i = 0; i < results.size(); i++) {
-                        exercises[i] = String.valueOf(results.get(i));
-                    }
-
-                    }
                 }
+            }
 
             @Override
-            public void onFailure(@NonNull Call<ExerciseBase> call, Throwable t) {
-
+            public void onFailure(Call<Exercise> call, Throwable t) {
+                Log.e(TAG, "Unable to submit post to api.");
             }
         });
     }
-
-
-    public void showResponse(String response) {
+        public void showResponse(String response) {
         if(mResponseTv.getVisibility() == View.GONE) {
             mResponseTv.setVisibility(View.VISIBLE);
         }
         mResponseTv.setText(response);
-    }
-
-    @Override
-    public void onResponse(Call<ExerciseBase> call, Response<ExerciseBase> response) {
-
-    }
-
-    @Override
-    public void onFailure(Call<ExerciseBase> call, Throwable t) {
-    }
+        }
 
     @Override
     public void onClick(View v) {
