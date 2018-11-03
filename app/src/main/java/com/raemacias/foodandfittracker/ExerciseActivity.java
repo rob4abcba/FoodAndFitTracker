@@ -51,20 +51,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ExerciseActivity extends AppCompatActivity implements Callback<ExerciseBase>, View.OnClickListener {
 
     private TextView mResponseTv;
-    private TrackerInterface mAPIService;
     private String TAG = "ExerciseActivity";
-
-    private int tagId;
-    private String userInput;
-    private int durationMin;
-    private Double met;
-    private Double nfCalories;
-    private Photo photo;
-    private int compendiumCode;
-    private String name;
-    private Object description;
-    private Object benefits;
-    private String workout;
 
     private String query;
     private String gender;
@@ -90,15 +77,18 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
         Button submitBtn = findViewById(R.id.btn_submit);
         mResponseTv = findViewById(R.id.tv_response);
 
+        final EditText workoutText = findViewById(R.id.et_query);
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//                String query = queryET.getText().toString().trim();
+                query = workoutText.getText().toString();
+
                 if(!TextUtils.isEmpty(query)) {
                     loadJSON();
                 }
-                Toast.makeText(ExerciseActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExerciseActivity.this, "Submitted", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -124,7 +114,7 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
         TrackerInterface trackerInterface = retrofit.create(TrackerInterface.class);
 
-            Call<ExerciseBase> call = trackerInterface.getStringScalar(new ExerciseRequest(queryET.getText().toString()));
+            Call<ExerciseBase> call = trackerInterface.getStringScalar(new ExerciseRequest(query));
 
         call.enqueue(new Callback<ExerciseBase>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -144,19 +134,8 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
                         exercises[i] = String.valueOf(results.get(i));
                     }
 
-                    for (List<Exercise> h : results) {
-                        Log.i("TANNER", new Gson().toJson(response.body()));
-
-                        Log.i("TANNER", call.request().url().toString());
-                        Log.i("TANNER", call.request().headers().toString());
-                        try {
-                            Log.i("TANNER", response.errorBody().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
-            }
 
             @Override
             public void onFailure(@NonNull Call<ExerciseBase> call, Throwable t) {
@@ -184,7 +163,7 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
     @Override
     public void onClick(View v) {
-        String mQuery = mResponseTv.getText().toString();
+        String query = mResponseTv.getText().toString();
         Toast.makeText(ExerciseActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
     }
 }
