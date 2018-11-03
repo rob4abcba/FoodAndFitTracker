@@ -124,7 +124,7 @@ public class ExerciseActivity extends AppCompatActivity implements Callback<Exer
 
         TrackerInterface trackerInterface = retrofit.create(TrackerInterface.class);
 
-            Call<ExerciseBase> call = trackerInterface.getStringScalar(new ExerciseRequest(queryET.getText()));
+            Call<ExerciseBase> call = trackerInterface.getStringScalar(new ExerciseRequest(queryET.getText().toString()));
 
         call.enqueue(new Callback<ExerciseBase>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
