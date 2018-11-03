@@ -2,11 +2,16 @@ package models.getCaloriesBurnedForExercises;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class Exercise implements Serializable {
     //This is the result of the query
@@ -118,4 +123,22 @@ public class Exercise implements Serializable {
     public void setBenefits(String benefits) {
         this.benefits = benefits;
     }
+
+    @Override
+    public String toString() {
+        return "Exercise {" +
+                "tagId='" + tagId + '\'' +
+                ", userInput'" + userInput + '\'' +
+                ", duration_min'" + durationMin + '\'' +
+                ", met'" + met + '\'' +
+                ", nf_calories'" + nfCalories + '\'' +
+                ", photo'" + photo + '\'' +
+                ", compendium_code'" + compendiumCode + '\'' +
+                ", name'" + name + '\'' +
+                ", description'" + description + '\'' +
+                ", benefits'" + benefits + '\'' +
+                '}';
+
+    }
+
 }

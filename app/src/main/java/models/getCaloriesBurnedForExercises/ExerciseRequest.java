@@ -8,8 +8,27 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ExerciseRequest implements Serializable {
+
+    private List<Exercise> exercises;
+
+    public ExerciseRequest() {
+
+    }
+    public ExerciseRequest(List<Exercise> exercises) {
+
+        this.exercises = exercises;
+    }
+    public List<Exercise> getExercises() {
+
+        return exercises;
+    }
+    public void setExercises(List<Exercise> exercises) {
+
+        this.exercises = exercises;
+    }
 
     public String getQuery() {
         return query;
