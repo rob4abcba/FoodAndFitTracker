@@ -11,6 +11,14 @@ import java.io.Serializable;
 public class Exercise implements Serializable {
     //This is the result of the query
 
+    @SerializedName("exercises")
+    @Expose
+    private ExerciseRequest[] exercises;
+
+    public ExerciseRequest[] getExercises() {
+        return exercises;
+    }
+
     @SerializedName("tag_id")
     private int tagId;
     @SerializedName("user_input")
