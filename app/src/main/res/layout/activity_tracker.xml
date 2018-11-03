@@ -39,94 +39,95 @@
                 android:background="@color/colorPrimaryDark"
                 android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/breakfast"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
-                android:paddingTop="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:text="@string/breakfast"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/breakfast"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="70dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:background="?attr/selectableItemBackground"-->
+                <!--android:text="@string/breakfast"-->
+                <!--android:textSize="20sp" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@id/breakfast"
-                android:background="@color/colorPrimaryDark"
-                android:visibility="visible" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:layout_below="@id/breakfast"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:visibility="visible" />-->
 
-            <TextView
-                android:id="@+id/lunch"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_below="@id/breakfast"
-                android:paddingTop="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:text="@string/lunch"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/lunch"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="70dp"-->
+                <!--android:layout_below="@id/breakfast"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:background="?attr/selectableItemBackground"-->
+                <!--android:text="@string/lunch"-->
+                <!--android:textSize="20sp" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@id/lunch"
-                android:background="@color/colorPrimaryDark"
-                android:visibility="visible" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:layout_below="@id/lunch"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:visibility="visible" />-->
 
 
-            <TextView
-                android:id="@+id/dinner"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_below="@id/lunch"
-                android:paddingTop="8dp"
-                android:text="@string/dinner"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/dinner"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="70dp"-->
+                <!--android:layout_below="@id/lunch"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:text="@string/dinner"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:background="?attr/selectableItemBackground"-->
+                <!--android:textSize="20sp" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@id/dinner"
-                android:background="@color/colorPrimaryDark"
-                android:visibility="visible" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:layout_below="@id/dinner"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:visibility="visible" />-->
 
-            <TextView
-                android:id="@+id/snacks"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_below="@id/dinner"
-                android:paddingTop="8dp"
-                android:text="@string/snacks"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/snacks"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="70dp"-->
+                <!--android:layout_below="@id/dinner"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:text="@string/snacks"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:background="?attr/selectableItemBackground"-->
+                <!--android:textSize="20sp" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_below="@id/snacks"
-                android:background="@color/colorPrimaryDark"
-                android:visibility="visible" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="4dp"-->
+                <!--android:layout_below="@id/snacks"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:visibility="visible" />-->
 
             <TextView
                 android:id="@+id/exercise"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_below="@id/snacks"
                 android:paddingTop="8dp"
+                android:layout_centerHorizontal="true"
                 android:clickable="true"
                 android:focusable="true"
+                android:layout_marginTop="65dp"
                 android:background="?attr/selectableItemBackground"
                 android:text="@string/exercise"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -145,7 +146,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <View
                 android:layout_width="match_parent"

@@ -18,36 +18,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_workout"
+        android:textSize="30sp"
          />
 
     <Button
         android:id="@+id/btn_submit"
-        android:layout_marginTop="18dp"
-        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textSize="20sp"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:background="@color/colorAccent"
         android:textColor="@android:color/white"
         android:text="@string/action_submit"/>
 
 
 
-    <TextView
-        android:id="@+id/tv_exercise"
-        android:layout_width="match_parent"
-        android:text="@string/exercise"
-        android:padding="16dp"
-        android:textSize="20sp"
-        android:layout_height="@dimen/layout_height" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_exercise"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:text="@string/exercise"-->
+        <!--android:padding="16dp"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_height="@dimen/layout_height" />-->
 
-    <TextView
-        android:id="@+id/tv_calories_burned"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_calories_burned"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/layout_height" />-->
 
     <TextView
         android:id="@+id/tv_response"
         android:layout_marginTop="35dp"
         android:visibility="gone"
+        android:textSize="24sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
