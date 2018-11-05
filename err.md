@@ -153,3 +153,117 @@ Rae (AND) [6 days ago]
    "id": "196dee79-a2ce-4c58-8b13-253c29cad735"
 }
 
+**
+
+Rae (AND) [Oct 31st at 9:31 AM]
+Hey everyone - I'm still having issues getting the api to pull the data. Does anyone have time to look at this for me?
+This api required raw json and headers, and I'm using Retrofit.
+I reworked the code, (lots of code commented out just from trying various things.) I have the two models, Exercise (which is the response) and ExerciseRequest (for the query). It needs to be raw Json so I have added scalars and added @Body to the interface. The headers should be fine...when I put the information into Postman with the headers and then in the body use "raw" and type is "JSON/application/json" and I enter the text: {"query" : "ran 2 miles" } and it will return the correct response.
+
+I've gone over several SO questions/answers and the latest on GH is what I came up with, but the line 111 in my ExerciseActivity Call<Exercise> call=service.getStringScalar(new ExerciseRequest(query, age));
+it doesn't like the "query, age" at the end and I don't know how to fix that, or anything else that might not be working.
+
+Here is my repo. https://github.com/raemacias/FoodAndFitTracker
+GitHub
+raemacias/FoodAndFitTracker
+My Capstone Project for the Udacity Nanodegree in Android Development. - raemacias/FoodAndFitTracker
+ 
+
+
+27 replies
+Chuck R (AND) [5 days ago]
+something seems weird about directories, you have your other folders outside of main code, for example - com/raemacias/foodandfittracker/ExerciseActivity.java but your adapters are under adapters/ without the com stuff
+
+Rae (AND) [5 days ago]
+I just recently noticed that, I don't know how that happened. Will I screw it all up if I move everything under the com folder?
+
+Chuck R (AND) [5 days ago]
+just leave it for now probably, it would require a lot of reworking. If the reviewer doesn't like it then fix it. So the contructor looks like it's expecting a Parcel in
+
+Rae (AND) [5 days ago]
+Do you mean in the Exercise class, the result class? or where do you mean?
+
+Chuck R (AND) [5 days ago]
+the only constuctor I see in ExerciseRequest is the parcel one, am I missing something?
+
+Chuck R (AND) [5 days ago]
+Could you just make a normal constuctor and set those values?
+
+Rae (AND) [5 days ago]
+No, you're not missing something. I guess I don't know what you mean by normal though...just not have anything parcelable. (edited)
+
+Chuck R (AND) [5 days ago]
+like a normal constuctor for class, you give it parameters and it sets them
+
+Napu Taitano (AND) [5 days ago]
+Something that lets you do
+```Example example = new Example(par1, par2, par3);```
+
+
+Like:
+```public Example(String picture, int number, String anotherThing) {
+        this.picture = picture;
+        this.number = number;
+        this.anotherThing = anotherThing;
+}```
+(edited)
+
+Chuck R (AND) [5 days ago]
+if you are still stuck later you can private message your api key and I can dig into it more
+
+Rae (AND) [5 days ago]
+Hi @Napu Taitano (AND) and @Chuck R (AND) I redid my models like normal constructors and tried to figure out the response part in the ExerciseActivity - now I have two onFailures, which is not correct, it's obviously kind of a mess.  I pushed up the latest changes just now if you have time to look at it again. And thank you!
+
+Rae (AND) [5 days ago]
+And sure, Chuck, I would love some help later tonight if you're available. :slightly_smiling_face:
+
+TannerS (AND) [5 days ago]
+fixed?
+
+Rae (AND) [5 days ago]
+No, I just got home from work so just going to dig back into it now.
+
+TannerS (AND) [5 days ago]
+if you need help, im here
+
+Rae (AND) [4 days ago]
+@TannerS (AND) did you look at my code so you can tell me what I'm doing wrong? I've gone down so many rabbit holes on this thing I'm ready to ditch it and try something else altogether. I just don't know enough java, it's frustrating for me.
+
+TannerS (AND) [4 days ago]
+No i wanted to follow up on more of what's happen I. G before I dive I to it
+
+Rae (AND) [4 days ago]
+Okay, at this point I am not getting any response when I submit what I think is the query but it's not connecting to anything. I have an interface for retrofit that has @Body in it because it's supposed to be raw JSON and I'm using getStringScalar to convert it. For "ease" I guess, I have the Retrofit builder and converter factories in the Exercise Activity where all this action should be happening. I have some Calls and things but it's all wrong.
+
+TannerS (AND) [4 days ago]
+So what's the goal. Your basics trying to send a json request via retrofit?
+
+Rae (AND) [4 days ago]
+Yes, that's what I'm trying to do and get the response based on the query.
+
+Rae (AND) [4 days ago]
+Basically everything is happening in the TrackerInterface in network, ExerciseActivity in my java class and under the "getCaloriesBurnesForExercise" folder the models Exercise for the result and ExerciseRequest for the query. The only mandatory item in the request is "query" but I added the rest of them in there just trying to make it work I guess.
+
+
+TannerS (AND) [4 days ago]
+ok Ill try to look at it, jsut lot to take in, lol
+
+
+TannerS (AND) [4 days ago]
+but stay online i may have quesitons im post in here
+
+
+Rae (AND) [4 days ago]
+I know, that's why I give the background of what's going on and there are only a few files to look at even though I have a lot built in there, they aren't doing anything yet.
+
+
+Chuck R (AND) [4 days ago]
+I'm still on if you want to Pmessage that api key so I can try to load it
+
+
+TannerS (AND) [4 days ago]
+same
+
+
+Rae (AND) [4 days ago]
+Awesome, I'll send it!
